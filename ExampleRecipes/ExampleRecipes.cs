@@ -4,9 +4,9 @@
 // File:    ExampleRecipes.cs
 // Project: ExampleRecipes
 
-using System.Collections.Generic;
-using System.Linq;
 using BepInEx;
+using ExampleRecipes.Models;
+using ExampleRecipes.Services;
 using Jotunn.Entities;
 using Jotunn.Managers;
 using Jotunn.Utils;
@@ -24,48 +24,43 @@ namespace ExampleRecipes
         public const string PluginVersion = "1.0.0";
 
         private AssetBundle EmbeddedResourceBundle;
-        private readonly List<GameObject> NewPrefabs = new List<GameObject>();
 
         private void Awake()
         {
-            LoadAssets();
-            AddItems();
-            ItemManager.Instance.AddRecipesFromJson("ExampleRecipes/Assets/recipes.json");
+            LoadAssetBundle();
+            AddRecipes();
+            UnloadAssetBundle();
         }
 
-        // Various forms of asset loading
-        private void LoadAssets()
+        private void LoadAssetBundle()
         {
             // Load asset bundle from embedded resources
             Jotunn.Logger.LogInfo($"Embedded resources: {string.Join(",", typeof(ExampleRecipes).Assembly.GetManifestResourceNames())}");
-            EmbeddedResourceBundle = AssetUtils.LoadAssetBundleFromResources("two", typeof(ExampleRecipes).Assembly);
-
-            var assetPaths = new List<string>()
-            {
-                "Assets/CustomItems/Two/Cape1.prefab",
-                "Assets/CustomItems/Two/Cape2.prefab"
-            };
-
-            foreach (var assetPath in assetPaths)
-            {
-                NewPrefabs.Add(EmbeddedResourceBundle.LoadAsset<GameObject>(assetPath));
-            }
+            EmbeddedResourceBundle = AssetUtils.LoadAssetBundleFromResources("testbundle", typeof(ExampleRecipes).Assembly);
         }
 
-        // Implementation of assets using mocks, adding recipe's manually without the config abstraction
-        private void AddItems()
+        private void UnloadAssetBundle()
         {
-            if (!NewPrefabs.Any()) Jotunn.Logger.LogWarning($"Failed to load assets from bundle: {EmbeddedResourceBundle}");
-            else
-            {
-                NewPrefabs.ForEach(newPrefab =>
-                {
-                    // Create and add a custom item
-                    var ci = new CustomItem(newPrefab, true);
-                    ItemManager.Instance.AddItem(ci);
-                });
-            }
             EmbeddedResourceBundle.Unload(false);
+        }
+
+        private void AddRecipes()
+        {
+            var extendedRecipes = ExtendedRecipeManager.LoadRecipesFromJson("ExampleRecipes/Assets/recipes.json");
+
+            extendedRecipes.ForEach(extendedRecipe =>
+            {
+                var prefab = EmbeddedResourceBundle.LoadAsset<GameObject>($"Assets/Prefabs/{extendedRecipe.item}.prefab");
+
+                var customItem = new CustomItem(prefab, true);
+
+                LocalizationManager.Instance.AddToken(extendedRecipe.name, extendedRecipe.nameValue, false);
+                LocalizationManager.Instance.AddToken(extendedRecipe.descriptionToken, extendedRecipe.description, false);
+
+                ItemManager.Instance.AddItem(customItem);
+
+                ItemManager.Instance.AddRecipe(ExtendedRecipe.Convert(extendedRecipe));
+            });
         }
     }
 }

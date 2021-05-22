@@ -1,31 +1,35 @@
 [
   {
-    "Item": "Cape1",
-    "Amount": 1,
-    "CraftingStation": "piece_cauldron",
-    "Requirements": [
+    "name": "$custom_item_funkysword",
+    "nameValue": "Funky Sword",
+    "item": "FunkySword",
+    "descriptionToken": "$custom_item_funkysword_description",
+    "description": "Funky sword.",
+    "amount": 1,
+    "craftingStation": "piece_workbench",
+    "minStationLevel": 1,
+    "enabled": true,
+    "resources": [
       {
-        "Item": "Stone",
-        "Amount": 2
-      },
-      {
-        "Item": "Wood",
-        "Amount": 1
+        "item": "Wood",
+        "amount": 20
       }
     ]
   },
   {
-    "Item": "Cape2",
-    "Amount": 1,
-    "CraftingStation": "piece_cauldron",
-    "Requirements": [
+    "name": "$custom_item_testjam",
+    "nameValue": "Test Jam",
+    "item": "TestJam",
+    "descriptionToken": "$custom_item_testjam_description",
+    "description": "Test jam.",
+    "amount": 5,
+    "craftingStation": "piece_cauldron",
+    "minStationLevel": 1,
+    "enabled": true,
+    "resources": [
       {
-        "Item": "Stone",
-        "Amount": 1
-      },
-      {
-        "Item": "Wood",
-        "Amount": 2
+        "item": "Wood",
+        "amount": 10
       }
     ]
   }
