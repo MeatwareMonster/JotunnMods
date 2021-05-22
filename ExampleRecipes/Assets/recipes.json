@@ -1,0 +1,32 @@
+[
+  {
+    "Item": "Cape1",
+    "Amount": 1,
+    "CraftingStation": "piece_cauldron",
+    "Requirements": [
+      {
+        "Item": "Stone",
+        "Amount": 2
+      },
+      {
+        "Item": "Wood",
+        "Amount": 1
+      }
+    ]
+  },
+  {
+    "Item": "Cape2",
+    "Amount": 1,
+    "CraftingStation": "piece_cauldron",
+    "Requirements": [
+      {
+        "Item": "Stone",
+        "Amount": 1
+      },
+      {
+        "Item": "Wood",
+        "Amount": 2
+      }
+    ]
+  }
+]
