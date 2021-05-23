@@ -7,17 +7,17 @@ using Jotunn.Entities;
 namespace ExampleRecipes.Models
 {
     [Serializable]
-    public class RecipeRequirement
+    public class ExtendedRecipeRequirement
     {
         public string item;
         public int amount;
 
-        public static RequirementConfig Convert(RecipeRequirement recipeRequirement)
+        public static RequirementConfig Convert(ExtendedRecipeRequirement extendedRecipeRequirement)
         {
             return new RequirementConfig()
             {
-                Amount = recipeRequirement.amount,
-                Item = recipeRequirement.item
+                Amount = extendedRecipeRequirement.amount,
+                Item = extendedRecipeRequirement.item
             };
         }
     }
@@ -35,7 +35,7 @@ namespace ExampleRecipes.Models
         public int minStationLevel;
         public bool enabled;
         public string repairStation;
-        public List<RecipeRequirement> resources = new List<RecipeRequirement>();
+        public List<ExtendedRecipeRequirement> resources;
 
         public static CustomRecipe Convert(ExtendedRecipe extendedRecipe)
         {
@@ -49,7 +49,7 @@ namespace ExampleRecipes.Models
                     MinStationLevel = extendedRecipe.minStationLevel,
                     Name = extendedRecipe.name,
                     RepairStation = extendedRecipe.repairStation,
-                    Requirements = extendedRecipe.resources.Select(RecipeRequirement.Convert).ToArray()
+                    Requirements = extendedRecipe.resources.Select(ExtendedRecipeRequirement.Convert).ToArray()
                 }
             );
         }
