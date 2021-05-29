@@ -12,7 +12,11 @@
     "resources": [
       {
         "item": "Wood",
-        "amount": 20
+        "amount": 5
+      },
+      {
+        "item": "Stone",
+        "amount": 5
       }
     ]
   },
