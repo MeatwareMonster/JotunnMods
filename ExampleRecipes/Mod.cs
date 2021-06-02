@@ -40,6 +40,20 @@ namespace ExampleRecipes
             {
                 funkySword.GetComponent<ItemDrop>().m_itemData.m_shared.m_damages.m_fire = 1000;
             }
+
+            PrefabManager.OnPrefabsRegistered += () =>
+            {
+                var skeletonDrop = PrefabManager.Instance.GetPrefab("Skeleton").GetComponent<CharacterDrop>();
+                skeletonDrop.m_drops.Add(new CharacterDrop.Drop
+                {
+                    m_amountMax = 1,
+                    m_amountMin = 1,
+                    m_chance = 100,
+                    m_levelMultiplier = false,
+                    m_onePerPlayer = false,
+                    m_prefab = funkySword
+                });
+            };
         }
 
         private void LoadAssetBundle()
