@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Jotunn.Configs;
 using Jotunn.Entities;
 
 namespace ExampleRecipes.Models
 {
-    [Serializable]
     public class ExtendedRecipeRequirement
     {
         public string item;
@@ -22,7 +20,6 @@ namespace ExampleRecipes.Models
         }
     }
 
-    [Serializable]
     public class ExtendedRecipe
     {
         public string name;
