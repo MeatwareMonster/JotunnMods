@@ -33,26 +33,28 @@ namespace ExampleRecipes
             AddRecipes();
             UnloadAssetBundle();
 
-            // Example of changing stats after loading the items
-            // The null check is necessary in case users remove the item from the config
-            var funkySword = PrefabManager.Instance.GetPrefab("FunkySword");
-            if (funkySword != null)
-            {
-                funkySword.GetComponent<ItemDrop>().m_itemData.m_shared.m_damages.m_fire = 1000;
-            }
-
+            // Listen to event to know when all prefabs are registered
             PrefabManager.OnPrefabsRegistered += () =>
             {
-                var skeletonDrop = PrefabManager.Instance.GetPrefab("Skeleton").GetComponent<CharacterDrop>();
-                skeletonDrop.m_drops.Add(new CharacterDrop.Drop
+                // The null check is necessary in case users remove the item from the config
+                var funkySword = PrefabManager.Instance.GetPrefab("FunkySword");
+                if (funkySword != null)
                 {
-                    m_amountMax = 1,
-                    m_amountMin = 1,
-                    m_chance = 100,
-                    m_levelMultiplier = false,
-                    m_onePerPlayer = false,
-                    m_prefab = funkySword
-                });
+                    // Add fire damage to the funky sword
+                    funkySword.GetComponent<ItemDrop>().m_itemData.m_shared.m_damages.m_fire = 1000;
+
+                    // Add funky sword to skeleton drops with 100% drop chance
+                    var skeletonDrop = PrefabManager.Instance.GetPrefab("Skeleton").GetComponent<CharacterDrop>();
+                    skeletonDrop.m_drops.Add(new CharacterDrop.Drop
+                    {
+                        m_amountMax = 1,
+                        m_amountMin = 1,
+                        m_chance = 100,
+                        m_levelMultiplier = false,
+                        m_onePerPlayer = false,
+                        m_prefab = funkySword
+                    });
+                }
             };
         }
 
