@@ -72,7 +72,7 @@ namespace ExampleRecipes
 
         private void AddRecipes()
         {
-            var extendedRecipes = ExtendedRecipeManager.LoadRecipesFromJson("ExampleRecipes/Assets/recipes.json");
+            var extendedRecipes = ExtendedRecipeManager.LoadRecipesFromJson($"{Path.GetDirectoryName(typeof(Mod).Assembly.Location)}/Assets/recipes.json");
 
             extendedRecipes.ForEach(extendedRecipe =>
             {
