@@ -48,7 +48,7 @@ namespace ExampleRecipes
                     {
                         m_amountMax = 1,
                         m_amountMin = 1,
-                        m_chance = 100,
+                        m_chance = 1f,
                         m_levelMultiplier = false,
                         m_onePerPlayer = false,
                         m_prefab = funkySword
