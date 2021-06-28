@@ -24,6 +24,7 @@ namespace ExampleRecipes.Models
     {
         public string name;
         public string nameValue;
+        public string prefabPath;
         public string item;
         public string descriptionToken;
         public string description;

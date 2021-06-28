@@ -24,7 +24,6 @@ namespace ExampleRecipes
         public const string PluginName = "ExampleRecipes";
         public const string PluginVersion = "1.0.0";
 
-        private const string UnityBasePath = "Assets/Prefabs";
         private AssetBundle _embeddedResourceBundle;
 
         private void Awake()
@@ -54,6 +53,15 @@ namespace ExampleRecipes
                         m_onePerPlayer = false,
                         m_prefab = funkySword
                     });
+
+                    var segullDrop = PrefabManager.Instance.GetPrefab("Seagal").GetComponent<DropOnDestroyed>().m_dropWhenDestroyed;
+                    segullDrop.m_drops.Add(new DropTable.DropData
+                    {
+                        m_item = funkySword,
+                        m_stackMin = 1,
+                        m_stackMax = 1,
+                        m_weight = 1f
+                    });
                 }
             };
         }
@@ -77,7 +85,7 @@ namespace ExampleRecipes
             extendedRecipes.ForEach(extendedRecipe =>
             {
                 // Load prefab from asset bundle
-                var prefab = _embeddedResourceBundle.LoadAsset<GameObject>($"{Path.Combine(UnityBasePath, extendedRecipe.item)}.prefab");
+                var prefab = _embeddedResourceBundle.LoadAsset<GameObject>(extendedRecipe.prefabPath);
 
                 // Create custom item
                 var customItem = new CustomItem(prefab, true);
