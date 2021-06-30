@@ -13,11 +13,13 @@
     "resources": [
       {
         "item": "Wood",
-        "amount": 5
+        "amount": 5,
+        "amountPerLevel": 2
       },
       {
         "item": "Stone",
-        "amount": 5
+        "amount": 5,
+        "amountPerLevel": 2
       }
     ]
   },
