@@ -9,13 +9,17 @@ namespace ExampleRecipes.Models
     {
         public string item;
         public int amount;
+        public int amountPerLevel;
+        public bool recover;
 
         public static RequirementConfig Convert(ExtendedRecipeRequirement extendedRecipeRequirement)
         {
             return new RequirementConfig()
             {
                 Amount = extendedRecipeRequirement.amount,
-                Item = extendedRecipeRequirement.item
+                Item = extendedRecipeRequirement.item,
+                AmountPerLevel = extendedRecipeRequirement.amountPerLevel,
+                Recover = extendedRecipeRequirement.recover
             };
         }
     }
